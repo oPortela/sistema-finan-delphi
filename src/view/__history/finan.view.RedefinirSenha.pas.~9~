@@ -1,0 +1,38 @@
+unit finan.view.RedefinirSenha;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    Panel1: TPanel;
+    lblNomeAplicacao: TLabel;
+    lblUsuario: TLabel;
+    Panel2: TPanel;
+    pnlSenha: TPanel;
+    Label3: TLabel;
+    edtConfirmarSenha: TEdit;
+    pnlUsuario: TPanel;
+    Label2: TLabel;
+    edtSenha: TEdit;
+    Panel3: TPanel;
+    btnConfirmar: TButton;
+    Button1: TButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+
+end.

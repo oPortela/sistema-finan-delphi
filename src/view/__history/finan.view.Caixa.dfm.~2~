@@ -1,0 +1,4 @@
+inherited frmCaixa: TfrmCaixa
+  Caption = 'Caixa'
+  TextHeight = 21
+end

@@ -1,0 +1,44 @@
+object DataModule1: TDataModule1
+  Height = 480
+  Width = 640
+  object cdsCaixa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspCaixa'
+    Left = 360
+    Top = 64
+    object cdsCaixaid: TStringField
+      FieldName = 'id'
+      Size = 36
+    end
+    object cdsCaixaDescricao: TStringField
+      FieldName = 'Descricao'
+      Size = 200
+    end
+    object cdsCaixaNumero_Doc: TStringField
+      FieldName = 'Numero_Doc'
+    end
+    object cdsCaixaValor: TFMTBCDField
+      FieldName = 'Valor'
+      Size = 18
+    end
+    object cdsCaixaTipo: TStringField
+      FieldName = 'Tipo'
+      Size = 1
+    end
+    object cdsCaixaData_Cadastro: TDateField
+      FieldName = 'Data_Cadastro'
+    end
+  end
+  object dspCaixa: TDataSetProvider
+    DataSet = sqlCaixa
+    Options = [poAllowCommandText, poUseQuoteChar]
+    Left = 288
+    Top = 64
+  end
+  object sqlCaixa: TFDQuery
+    Connection = dmConexao.SQLConexao
+    Left = 208
+    Top = 64
+  end
+end

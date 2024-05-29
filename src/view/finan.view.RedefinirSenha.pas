@@ -1,0 +1,95 @@
+unit finan.view.RedefinirSenha;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  sistema.model.Entidades.usuarios;
+
+type
+  TfrmRedefinirSenha = class(TForm)
+    Panel1: TPanel;
+    lblNomeAplicacao: TLabel;
+    lblUsuario: TLabel;
+    Panel2: TPanel;
+    pnlSenha: TPanel;
+    Label3: TLabel;
+    edtConfirmarSenha: TEdit;
+    pnlUsuario: TPanel;
+    Label2: TLabel;
+    edtSenha: TEdit;
+    Panel3: TPanel;
+    btnConfirmar: TButton;
+    btnCancelar: TButton;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+  private
+    FUsuario: TModelEntidadeUsuario;
+    procedure SetUsuario(const Value: TModelEntidadeUsuario);
+    { Private declarations }
+  public
+    { Public declarations }
+    property Usuario : TModelEntidadeUsuario read FUsuario write SetUsuario;
+  end;
+
+var
+  frmRedefinirSenha: TfrmRedefinirSenha;
+
+implementation
+
+uses
+  sistema.model.usuarios;
+
+{$R *.dfm}
+
+
+procedure TfrmRedefinirSenha.btnConfirmarClick(Sender: TObject);
+begin
+  edtSenha.Text := Trim(edtSenha.Text);
+  edtConfirmarSenha.Text := Trim(edtConfirmarSenha.Text);
+
+  if Trim(edtSenha.Text) = '' then
+  begin
+    edtSenha.SetFocus;
+    Application.MessageBox('Informe sua nova senha', 'Atenção', MB_OK + MB_ICONWARNING);
+    abort;
+  end;
+
+  if Trim(edtConfirmarSenha.Text) = '' then
+  begin
+    edtConfirmarSenha.SetFocus;
+    Application.MessageBox('Repita a sua nova senha', 'Atenção', MB_OK + MB_ICONWARNING);
+    abort;
+  end;
+
+  if edtSenha.Text <> edtConfirmarSenha.Text then
+  begin
+    edtConfirmarSenha.SetFocus;
+    Application.MessageBox('Senha diferente da confirmação.', 'Atenção', MB_OK + MB_ICONWARNING);
+    abort;
+  end;
+
+  Usuario.Senha := edtSenha.Text;
+  dmUsuarios.RedefinirSenha(usuario);
+  Application.MessageBox('Senha alterada com Sucesso.', 'Sucesso', MB_OK + MB_ICONINFORMATION);
+  ModalResult := mrOk;
+end;
+
+procedure TfrmRedefinirSenha.btnCancelarClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+procedure TfrmRedefinirSenha.FormShow(Sender: TObject);
+begin
+  lblUsuario.Caption := FUsuario.Nome;
+end;
+
+procedure TfrmRedefinirSenha.SetUsuario(const Value: TModelEntidadeUsuario);
+begin
+  FUsuario := Value;
+end;
+
+end.

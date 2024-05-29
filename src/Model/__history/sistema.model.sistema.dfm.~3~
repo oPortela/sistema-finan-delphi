@@ -1,0 +1,5 @@
+object dmSistema: TdmSistema
+  OnCreate = DataModuleCreate
+  Height = 480
+  Width = 640
+end

@@ -1,0 +1,23 @@
+object dmConexao: TdmConexao
+  OnCreate = DataModuleCreate
+  Height = 492
+  Width = 642
+  object FDQuery1: TFDQuery
+    Active = True
+    Connection = SQLConexao
+    SQL.Strings = (
+      'select * from usuarios')
+    Left = 72
+    Top = 144
+  end
+  object SQLConexao: TFDConnection
+    Params.Strings = (
+      'Database=E:\sistema-finan-delphi\db\SistemaFinanceiro.db'
+      'LockingMode=Normal'
+      'DriverID=SQLite')
+    Connected = True
+    LoginPrompt = False
+    Left = 208
+    Top = 56
+  end
+end
