@@ -1,0 +1,7 @@
+inherited frmContasPagar: TfrmContasPagar
+  Caption = 'Cadastro de Contas a Pagar'
+  TextHeight = 21
+  inherited DataSource1: TDataSource
+    DataSet = dmContasPagar.cdsContasPagar
+  end
+end

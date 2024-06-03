@@ -14,7 +14,11 @@ uses
   sistema.model.sistema in 'src\Model\sistema.model.sistema.pas' {dmSistema: TDataModule},
   finan.view.RedefinirSenha in 'src\view\finan.view.RedefinirSenha.pas' {frmRedefinirSenha},
   sistema.model.Caixa in 'src\Model\sistema.model.Caixa.pas' {dmCaixa: TDataModule},
-  finan.view.Caixa in 'src\view\finan.view.Caixa.pas' {frmCaixa};
+  finan.view.Caixa in 'src\view\finan.view.Caixa.pas' {frmCaixa},
+  finan.view.Caixa.Saldo in 'src\view\finan.view.Caixa.Saldo.pas' {frmCaixaSaldo},
+  sistema.model.Entidades.Caixa.Resumo in 'src\Model\Entidades\sistema.model.Entidades.Caixa.Resumo.pas',
+  sistema.model.Contas.Pagar in 'src\Model\sistema.model.Contas.Pagar.pas' {dmContasPagar: TDataModule},
+  finan.view.Contas.Pagar in 'src\view\finan.view.Contas.Pagar.pas' {frmContasPagar};
 
 {$R *.res}
 
@@ -29,5 +33,8 @@ begin
   Application.CreateForm(TformUsuarios, formUsuarios);
   Application.CreateForm(TdmSistema, dmSistema);
   Application.CreateForm(TfrmCaixa, frmCaixa);
+  Application.CreateForm(TfrmCaixaSaldo, frmCaixaSaldo);
+  Application.CreateForm(TdmContasPagar, dmContasPagar);
+  Application.CreateForm(TfrmContasPagar, frmContasPagar);
   Application.Run;
 end.

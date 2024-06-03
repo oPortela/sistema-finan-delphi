@@ -1,0 +1,92 @@
+unit sistema.model.Caixa;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Datasnap.Provider, Data.DB, Datasnap.DBClient, sistema.model.conexao,
+  sistema.model.Entidades.Caixa.Resumo;
+
+type
+  TdmCaixa = class(TDataModule)
+    cdsCaixa: TClientDataSet;
+    dspCaixa: TDataSetProvider;
+    sqlCaixa: TFDQuery;
+    cdsCaixaid: TStringField;
+    cdsCaixaDescricao: TStringField;
+    cdsCaixaNumero_Doc: TStringField;
+    cdsCaixaValor: TFMTBCDField;
+    cdsCaixaTipo: TStringField;
+    cdsCaixaData_Cadastro: TDateField;
+  private
+    { Private declarations }
+    function GetSaldoAnteriorCaixa(Data : TDate) : Currency;
+    function GetTotalEntradasCaixa(DataInicial, DataFinal : TDate) : Currency;
+    function GetTotalSaidasCaixa(DataInicial, DataFinal : TDate) : Currency;
+  public
+    { Public declarations }
+    function ResumoCaixa(DataInicial, DataFinal : TDate) : TModelResumoCaixa;
+  end;
+
+var
+  dmCaixa: TdmCaixa;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+
+{ TdmCaixa }
+
+function TdmCaixa.GetSaldoAnteriorCaixa(Data: TDate): Currency;
+var
+  SQLConsulta : TFDQuery;
+  TotalEntradas : Currency;
+  TotalSaidas : Currency;
+begin
+  SQLConsulta := TFDQuery.Create(nil);
+  try
+    //Calcular total de entradas
+    SQLConsulta.Connection := dmConexao.SQLConexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT IFNULL(SUM(VALOR), 0) AS VALOR FROM CAIXA WHERE TIPO = ''R''');
+    SQLConsulta.SQL.Add(' AND DATA_CADASTRO < :DATA');
+    SQLConsulta.ParamByName('DATA').AsDate := Data;
+    SQLConsulta.Open;
+    TotalEntradas := SQLConsulta.FieldByName('VALOR').AsCurrency;
+
+    //Calcular total de saídas
+    SQLConsulta.Connection := dmConexao.SQLConexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT IFNULL(SUM(VALOR), 0) AS VALOR FROM CAIXA WHERE TIPO = ''D''');
+    SQLConsulta.SQL.Add(' AND DATA_CADASTRO < :DATA');
+    SQLConsulta.ParamByName('DATA').AsDate := Data;
+    SQLConsulta.Open;
+    TotalSaidas := SQLConsulta.FieldByName('VALOR').AsCurrency;
+  finally
+    SQLConsulta.Free;
+  end;
+
+  Result := TotalEntradas - TotalSaidas;
+end;
+
+function TdmCaixa.GetTotalEntradasCaixa(DataInicial, DataFinal: TDate): Currency;
+begin
+
+end;
+
+function TdmCaixa.GetTotalSaidasCaixa(DataInicial, DataFinal: TDate): Currency;
+begin
+
+end;
+
+function TdmCaixa.ResumoCaixa(DataInicial, DataFinal: TDate): TModelResumoCaixa;
+begin
+
+end;
+
+end.

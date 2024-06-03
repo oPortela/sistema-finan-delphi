@@ -8,6 +8,7 @@ type
   TUtilitarios = class
     class function GetId : String;
     class function LikeFind(Pesquisa : String; Grid : TDBGrid) : String;
+    class function FormatoMoeda(aValue : Currency): String;
   end;
 
 implementation
@@ -16,6 +17,11 @@ uses
   System.SysUtils;
 
 { TUtilitarios }
+
+class function TUtilitarios.FormatoMoeda(aValue: Currency): String;
+begin
+  Result := Format('%m', [aValue]);
+end;
 
 class function TUtilitarios.GetId: String;
 begin
@@ -37,7 +43,7 @@ begin
     Result := Result + Grid.Columns.Items[Lcontador].FieldName + ' LIKE ' + QuotedStr('%' + Trim(Pesquisa) + '%') + ' OR ';
   end;
 
-  Result := ' WHERE ' + Copy(Result, 1, Length(Result) - 4);
+  Result := ' AND ( ' + Copy(Result, 1, Length(Result) - 4) + ')';
 end;
 
 

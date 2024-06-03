@@ -17,11 +17,15 @@ type
     Timer1: TTimer;
     Financeiro1: TMenuItem;
     mnuCaixa: TMenuItem;
+    mnuResumoCaixa: TMenuItem;
+    mnuContasPagar: TMenuItem;
     procedure menuCadastroPadraoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnuUsuariosClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure mnuCaixaClick(Sender: TObject);
+    procedure mnuResumoCaixaClick(Sender: TObject);
+    procedure mnuContasPagarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,7 +40,8 @@ implementation
 uses
   finan.view.cadastroPadrao,
   finan.view.splash, finan.view.Usuario, finan.view.Login,
-  sistema.model.usuarios, finan.view.RedefinirSenha, finan.view.Caixa;
+  sistema.model.usuarios, finan.view.RedefinirSenha, finan.view.Caixa,
+  finan.view.Caixa.Saldo, finan.view.Contas.Pagar;
 
 {$R *.dfm}
 
@@ -83,6 +88,16 @@ end;
 procedure TfrmPrincipal.mnuCaixaClick(Sender: TObject);
 begin
   frmCaixa.Show;
+end;
+
+procedure TfrmPrincipal.mnuContasPagarClick(Sender: TObject);
+begin
+  frmContasPagar.Show;
+end;
+
+procedure TfrmPrincipal.mnuResumoCaixaClick(Sender: TObject);
+begin
+  frmCaixaSaldo.Show;
 end;
 
 procedure TfrmPrincipal.mnuUsuariosClick(Sender: TObject);

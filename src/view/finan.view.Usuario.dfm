@@ -2,7 +2,6 @@ inherited formUsuarios: TformUsuarios
   Caption = 'Cadastro de Usu'#225'rios'
   TextHeight = 21
   inherited PnlPrincipal: TCardPanel
-    ActiveCard = cardCadastro
     inherited cardCadastro: TCard
       ExplicitLeft = -96
       ExplicitTop = -8

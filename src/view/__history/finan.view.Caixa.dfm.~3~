@@ -1,7 +1,0 @@
-inherited frmCaixa: TfrmCaixa
-  Caption = 'Caixa'
-  TextHeight = 21
-  inherited DataSource1: TDataSource
-    DataSet = dmCaixa.cdsCaixa
-  end
-end

@@ -111,13 +111,14 @@ begin
   if DataSource1.State in [dsInsert] then
   begin
   Mensagem := 'Registro incluído com sucesso';
+  end;
 
   TClientDataSet(DataSource1.DataSet).Post;
   TClientDataSet(DataSource1.DataSet).ApplyUpdates(0);
   Application.MessageBox(PWidechar(Mensagem), 'Sucesso', MB_OK + MB_ICONINFORMATION);
 
   Pesquisar;
-  end;
+
   PnlPrincipal.ActiveCard := cardPesquisa;
 end;
 
@@ -142,7 +143,9 @@ begin
     if Components[Contador] is TCustomEdit then
       TCustomEdit(Components[Contador]).Clear
     else if Components[Contador] is TToggleSwitch then
-      TToggleSwitch(Components[Contador]).State := tssOn;
+      TToggleSwitch(Components[Contador]).State := tssOn
+    else if Components[Contador] is TRadioGroup then
+      TRadioGroup(Components[Contador]).ItemIndex := -1;
   end;
 end;
 

@@ -157,7 +157,7 @@ begin
   inherited;
   FiltroPesquisa := TUtilitarios.LikeFind(LimparString(edtPesquisar.Text), DBGrid1);
   dmUsuarios.cdsUsuarios.Close;
-  dmUsuarios.cdsUsuarios.CommandText := 'select * from usuarios' + FiltroPesquisa;
+  dmUsuarios.cdsUsuarios.CommandText := 'select * from usuarios where 1=1' + FiltroPesquisa;
   dmUsuarios.cdsUsuarios.Open;
 end;
 
