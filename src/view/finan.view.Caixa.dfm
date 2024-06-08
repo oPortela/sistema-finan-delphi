@@ -1,5 +1,6 @@
 inherited frmCaixa: TfrmCaixa
   Caption = 'Caixa'
+  OnCreate = FormCreate
   TextHeight = 21
   inherited PnlPrincipal: TCardPanel
     ActiveCard = cardCadastro

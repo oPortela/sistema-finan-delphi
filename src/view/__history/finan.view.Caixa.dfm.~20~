@@ -1,0 +1,145 @@
+inherited frmCaixa: TfrmCaixa
+  Caption = 'Caixa'
+  TextHeight = 21
+  inherited PnlPrincipal: TCardPanel
+    ActiveCard = cardCadastro
+    inherited cardCadastro: TCard
+      object Label2: TLabel [0]
+        Left = 24
+        Top = 27
+        Width = 107
+        Height = 21
+        Caption = 'N'#186' Documento:'
+      end
+      object Label3: TLabel [1]
+        Left = 24
+        Top = 62
+        Width = 70
+        Height = 21
+        Caption = 'Descri'#231#227'o:'
+      end
+      object Label5: TLabel [2]
+        Left = 24
+        Top = 99
+        Width = 39
+        Height = 21
+        Caption = 'Valor:'
+      end
+      object edtNumeroDocumento: TEdit
+        Left = 160
+        Top = 24
+        Width = 329
+        Height = 29
+        TabOrder = 1
+      end
+      object edtDescricao: TEdit
+        Left = 160
+        Top = 59
+        Width = 329
+        Height = 29
+        TabOrder = 2
+      end
+      object edtValor: TEdit
+        Left = 160
+        Top = 96
+        Width = 329
+        Height = 29
+        TabOrder = 3
+      end
+      object RadioGroup1: TRadioGroup
+        Left = 24
+        Top = 131
+        Width = 465
+        Height = 62
+        Caption = 'Tipo'
+        Columns = 2
+        Items.Strings = (
+          'Receita'
+          'Despesa')
+        TabOrder = 4
+      end
+    end
+    inherited cardPesquisa: TCard
+      inherited pnlPesquisa: TPanel
+        object Label4: TLabel [1]
+          Left = 407
+          Top = 9
+          Width = 30
+          Height = 21
+          Caption = 'Tipo'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentFont = False
+        end
+        inherited edtPesquisar: TEdit
+          Width = 393
+          ExplicitWidth = 393
+        end
+        object cbTipo: TComboBox
+          Left = 407
+          Top = 37
+          Width = 145
+          Height = 29
+          Style = csDropDownList
+          ItemIndex = 0
+          TabOrder = 2
+          Text = 'Todos'
+          Items.Strings = (
+            'Todos'
+            'Receita'
+            'Despesa')
+        end
+      end
+      inherited pnlGrid: TPanel
+        inherited DBGrid1: TDBGrid
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'id'
+              Title.Caption = 'Id'
+              Width = 100
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Data_Cadastro'
+              Title.Caption = 'Data'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Numero_Doc'
+              Title.Caption = 'N'#186' Documento'
+              Width = 150
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Descricao'
+              Title.Caption = 'Descri'#231#227'o'
+              Width = 308
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Tipo'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Valor'
+              Width = 64
+              Visible = True
+            end>
+        end
+      end
+    end
+  end
+  inherited DataSource1: TDataSource
+    DataSet = dmCaixa.cdsCaixa
+  end
+end

@@ -1,0 +1,76 @@
+inherited frmContasReceber: TfrmContasReceber
+  Caption = 'Cadastro Contas a Receber'
+  TextHeight = 21
+  inherited PnlPrincipal: TCardPanel
+    inherited cardPesquisa: TCard
+      inherited pnlGrid: TPanel
+        inherited DBGrid1: TDBGrid
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'id'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'numero_documento'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'descricao'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'parcela'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'valor_parcela'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'valor_venda'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'valor_abatido'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'data_venda'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'data_cadastro'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'data_vencimento'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'data_recebimento'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'status'
+              Visible = True
+            end>
+        end
+      end
+    end
+  end
+  inherited DataSource1: TDataSource
+    DataSet = dmContasReceber.cdsContasReceber
+  end
+end

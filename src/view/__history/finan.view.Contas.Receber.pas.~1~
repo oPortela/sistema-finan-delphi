@@ -1,0 +1,26 @@
+unit finan.view.Contas.Receber;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, finan.view.cadastroPadrao, Data.DB,
+  System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.WinXPanels;
+
+type
+  TformCadastroPadrao1 = class(TformCadastroPadrao)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formCadastroPadrao1: TformCadastroPadrao1;
+
+implementation
+
+{$R *.dfm}
+
+end.

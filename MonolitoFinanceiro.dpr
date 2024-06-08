@@ -18,7 +18,9 @@ uses
   finan.view.Caixa.Saldo in 'src\view\finan.view.Caixa.Saldo.pas' {frmCaixaSaldo},
   sistema.model.Entidades.Caixa.Resumo in 'src\Model\Entidades\sistema.model.Entidades.Caixa.Resumo.pas',
   sistema.model.Contas.Pagar in 'src\Model\sistema.model.Contas.Pagar.pas' {dmContasPagar: TDataModule},
-  finan.view.Contas.Pagar in 'src\view\finan.view.Contas.Pagar.pas' {frmContasPagar};
+  finan.view.Contas.Pagar in 'src\view\finan.view.Contas.Pagar.pas' {frmContasPagar},
+  sistema.model.Contas.Receber in 'src\Model\sistema.model.Contas.Receber.pas' {dmContasReceber: TDataModule},
+  finan.view.Contas.Receber in 'src\view\finan.view.Contas.Receber.pas' {frmContasReceber};
 
 {$R *.res}
 
@@ -36,5 +38,7 @@ begin
   Application.CreateForm(TfrmCaixaSaldo, frmCaixaSaldo);
   Application.CreateForm(TdmContasPagar, dmContasPagar);
   Application.CreateForm(TfrmContasPagar, frmContasPagar);
+  Application.CreateForm(TdmContasReceber, dmContasReceber);
+  Application.CreateForm(TfrmContasReceber, frmContasReceber);
   Application.Run;
 end.

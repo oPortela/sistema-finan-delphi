@@ -6,14 +6,14 @@
     <Transaction>2024/05/04 13:50:11.000.119,C:\Users\oPortela\Documents\Embarcadero\Studio\Projects\Unit2.dfm=E:\sistema finan delphi\src\view\finan.view.princ.dfm</Transaction>
     <Transaction>2024/05/04 13:50:43.000.390,C:\Users\oPortela\Documents\Embarcadero\Studio\Projects\Project2.dproj=E:\sistema finan delphi\MonolitoFinanceiro.dproj</Transaction>
     <Transaction>2024/05/04 21:43:12.000.577,=E:\sistema finan delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/04 21:43:56.000.512,E:\sistema finan delphi\src\view\finan.view.cadastroPadrao.dfm=E:\sistema finan delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/04 21:43:56.000.512,E:\sistema finan delphi\src\view\finan.view.cadastroPadrao.pas=E:\sistema finan delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/04 21:43:56.000.512,E:\sistema finan delphi\src\view\finan.view.cadastroPadrao.dfm=E:\sistema finan delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/05 00:00:04.000.730,=E:\sistema finan delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/05 00:00:41.000.695,E:\sistema finan delphi\src\view\finan.view.splash.dfm=E:\sistema finan delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/05 00:00:41.000.695,E:\sistema finan delphi\src\view\finan.view.splash.pas=E:\sistema finan delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/05 00:00:41.000.695,E:\sistema finan delphi\src\view\finan.view.splash.dfm=E:\sistema finan delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/07 10:09:11.000.393,=E:\sistema finan delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/07 10:10:01.000.541,E:\sistema finan delphi\src\Model\sistema.model.conexao.pas=E:\sistema finan delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/07 10:10:01.000.541,E:\sistema finan delphi\src\Model\sistema.model.conexao.dfm=E:\sistema finan delphi\Unit1.dfm</Transaction>
+    <Transaction>2024/05/07 10:10:01.000.541,E:\sistema finan delphi\src\Model\sistema.model.conexao.pas=E:\sistema finan delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/07 10:17:29.000.344,=E:\sistema finan delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/07 10:18:26.000.498,E:\sistema finan delphi\src\view\finan.view.Usuaeio.dfm=E:\sistema finan delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/07 10:18:26.000.498,E:\sistema finan delphi\src\view\finan.view.Usuaeio.pas=E:\sistema finan delphi\Unit1.pas</Transaction>
@@ -35,20 +35,20 @@
     <Transaction>2024/05/10 14:28:01.000.211,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/10 14:28:58.000.631,E:\sistema-finan-delphi\Unit1.pas=E:\sistema-finan-delphi\src\Util\finan.Utilitarios.pas</Transaction>
     <Transaction>2024/05/13 13:41:00.000.121,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/13 13:41:28.000.088,E:\sistema-finan-delphi\src\view\finan.view.Login.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/13 13:41:28.000.088,E:\sistema-finan-delphi\src\view\finan.view.Login.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/13 13:41:28.000.088,E:\sistema-finan-delphi\src\view\finan.view.Login.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/14 15:17:26.000.085,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/14 15:19:16.000.579,E:\sistema-finan-delphi\src\Model\Entidades\sistema.model.Entidades.usuarios.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/14 15:57:54.000.949,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/14 16:01:57.000.852,E:\sistema-finan-delphi\src\Model\sistema.model.sistema.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/14 16:01:57.000.852,E:\sistema-finan-delphi\src\Model\sistema.model.sistema.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/14 16:01:57.000.852,E:\sistema-finan-delphi\src\Model\sistema.model.sistema.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
     <Transaction>2024/05/24 17:22:04.000.850,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/24 17:22:29.000.935,E:\sistema-finan-delphi\src\view\finan.view.RedefinirSenha.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/24 17:22:29.000.935,E:\sistema-finan-delphi\src\view\finan.view.RedefinirSenha.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
+    <Transaction>2024/05/24 17:22:29.000.935,E:\sistema-finan-delphi\src\view\finan.view.RedefinirSenha.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/28 09:48:41.000.646,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/28 13:56:24.000.649,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/28 13:57:07.000.664,E:\sistema-finan-delphi\Unit1.pas=E:\sistema-finan-delphi\src\Model\sistema.model.Caixa.pas</Transaction>
     <Transaction>2024/05/28 13:57:07.000.664,E:\sistema-finan-delphi\Unit1.dfm=E:\sistema-finan-delphi\src\Model\sistema.model.Caixa.dfm</Transaction>
+    <Transaction>2024/05/28 13:57:07.000.664,E:\sistema-finan-delphi\Unit1.pas=E:\sistema-finan-delphi\src\Model\sistema.model.Caixa.pas</Transaction>
     <Transaction>2024/05/28 14:46:05.000.367,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/28 14:48:17.000.520,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/28 14:51:48.000.576,E:\sistema-finan-delphi\Unit1.pas=E:\sistema-finan-delphi\src\view\finan.view.Caixa.pas</Transaction>
@@ -58,12 +58,18 @@
     <Transaction>2024/05/30 11:16:55.000.854,E:\sistema-finan-delphi\Unit1.dfm=E:\sistema-finan-delphi\src\view\finan.view.Caixa.Saldo.dfm</Transaction>
     <Transaction>2024/05/30 11:41:21.000.947,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
     <Transaction>2024/05/30 11:46:10.000.700,E:\sistema-finan-delphi\Unit1.pas=E:\sistema-finan-delphi\src\Model\Entidades\sistema.model.Entidades.Caixa.Resumo.pas</Transaction>
-    <Transaction>2024/05/31 15:28:33.997,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/31 15:47:26.018,E:\sistema-finan-delphi\src\Model\sistema.model.Contas.Pagar.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
-    <Transaction>2024/05/31 15:47:26.018,E:\sistema-finan-delphi\src\Model\sistema.model.Contas.Pagar.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/31 16:10:11.460,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
-    <Transaction>2024/05/31 16:11:01.844,E:\sistema-finan-delphi\src\view\finan.view.Contas.Pagar.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
-    <Transaction>2024/05/31 16:11:01.844,E:\sistema-finan-delphi\src\view\finan.view.Contas.Pagar.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/31 15:28:33.000.997,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/31 15:47:26.000.018,E:\sistema-finan-delphi\src\Model\sistema.model.Contas.Pagar.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/31 15:47:26.000.018,E:\sistema-finan-delphi\src\Model\sistema.model.Contas.Pagar.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
+    <Transaction>2024/05/31 16:10:11.000.460,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/31 16:11:01.000.844,E:\sistema-finan-delphi\src\view\finan.view.Contas.Pagar.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/05/31 16:11:01.000.844,E:\sistema-finan-delphi\src\view\finan.view.Contas.Pagar.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
+    <Transaction>2024/06/08 19:10:49.761,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/06/08 19:13:00.898,E:\sistema-finan-delphi\src\Model\sistema.model.Contas.Receber.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/06/08 19:13:00.898,E:\sistema-finan-delphi\src\Model\sistema.model.Contas.Receber.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
+    <Transaction>2024/06/08 19:20:05.271,=E:\sistema-finan-delphi\Unit1.pas</Transaction>
+    <Transaction>2024/06/08 19:20:20.394,E:\sistema-finan-delphi\src\view\finan.view.Contas.Receber.dfm=E:\sistema-finan-delphi\Unit1.dfm</Transaction>
+    <Transaction>2024/06/08 19:20:20.394,E:\sistema-finan-delphi\src\view\finan.view.Contas.Receber.pas=E:\sistema-finan-delphi\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="src"/>
@@ -81,6 +87,8 @@
     <File Path="src\Model\sistema.model.Caixa.dfm"/>
     <File Path="src\Model\sistema.model.Contas.Pagar.pas"/>
     <File Path="src\Model\sistema.model.Contas.Pagar.dfm"/>
+    <File Path="src\Model\sistema.model.Contas.Receber.pas"/>
+    <File Path="src\Model\sistema.model.Contas.Receber.dfm"/>
     <File Path="src\Util"/>
     <File Path="src\Util\finan.Utilitarios.pas"/>
     <File Path="src\view"/>
@@ -102,5 +110,7 @@
     <File Path="src\view\finan.view.Caixa.Saldo.dfm"/>
     <File Path="src\view\finan.view.Contas.Pagar.pas"/>
     <File Path="src\view\finan.view.Contas.Pagar.dfm"/>
+    <File Path="src\view\finan.view.Contas.Receber.pas"/>
+    <File Path="src\view\finan.view.Contas.Receber.dfm"/>
   </ProjectSortOrder>
 </BorlandProject>

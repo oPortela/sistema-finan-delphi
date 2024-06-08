@@ -1,0 +1,4 @@
+inherited frmContasReceber: TfrmContasReceber
+  Caption = 'Cadastro Contas Receber'
+  TextHeight = 21
+end

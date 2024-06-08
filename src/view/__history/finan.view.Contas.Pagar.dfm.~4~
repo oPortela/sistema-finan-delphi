@@ -1,4 +1,0 @@
-inherited frmContasPagar: TfrmContasPagar
-  Caption = 'Cadastro de Contas a Pagar'
-  TextHeight = 21
-end
