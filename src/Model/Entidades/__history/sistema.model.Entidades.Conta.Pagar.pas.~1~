@@ -1,0 +1,7 @@
+unit sistema.model.Entidades.Conta.Pagar;
+
+interface
+
+implementation
+
+end.

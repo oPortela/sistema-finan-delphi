@@ -20,7 +20,10 @@ uses
   sistema.model.Contas.Pagar in 'src\Model\sistema.model.Contas.Pagar.pas' {dmContasPagar: TDataModule},
   finan.view.Contas.Pagar in 'src\view\finan.view.Contas.Pagar.pas' {frmContasPagar},
   sistema.model.Contas.Receber in 'src\Model\sistema.model.Contas.Receber.pas' {dmContasReceber: TDataModule},
-  finan.view.Contas.Receber in 'src\view\finan.view.Contas.Receber.pas' {frmContasReceber};
+  finan.view.Contas.Receber in 'src\view\finan.view.Contas.Receber.pas' {frmContasReceber},
+  finan.view.Contas.Pagar.Baixar in 'src\view\finan.view.Contas.Pagar.Baixar.pas' {frmContasPagarBaixar},
+  sistema.model.Entidades.Conta.Pagar in 'src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.pas',
+  sistema.model.Entidades.Conta.Pagar.Detalhes in 'src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.Detalhes.pas';
 
 {$R *.res}
 
@@ -40,5 +43,6 @@ begin
   Application.CreateForm(TfrmContasPagar, frmContasPagar);
   Application.CreateForm(TdmContasReceber, dmContasReceber);
   Application.CreateForm(TfrmContasReceber, frmContasReceber);
+  Application.CreateForm(TfrmContasPagarBaixar, frmContasPagarBaixar);
   Application.Run;
 end.

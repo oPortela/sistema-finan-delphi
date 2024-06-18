@@ -176,6 +176,12 @@
             <Form>frmContasReceber</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\view\finan.view.Contas.Pagar.Baixar.pas">
+            <Form>frmContasPagarBaixar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.pas"/>
+        <DCCReference Include="src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.Detalhes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -1,4 +1,0 @@
-inherited frmContasReceber: TfrmContasReceber
-  Caption = 'frmContasReceber'
-  TextHeight = 21
-end

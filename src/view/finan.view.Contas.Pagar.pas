@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, finan.view.cadastroPadrao, Data.DB,
   System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.WinXPanels, sistema.model.Contas.Pagar, Vcl.ComCtrls,
-  Vcl.WinXCtrls, Datasnap.DBClient;
+  Vcl.WinXCtrls, Datasnap.DBClient, Vcl.Menus;
 
 type
   TfrmContasPagar = class(TformCadastroPadrao)
@@ -43,6 +43,8 @@ type
     cdsParcelasVencimento: TDateField;
     cdsParcelasDocumento: TStringField;
     dsParcelas: TDataSource;
+    PopupMenu1: TPopupMenu;
+    mnuBaixar: TMenuItem;
     procedure btnIncluirClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
@@ -53,6 +55,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure edtValorCompraExit(Sender: TObject);
     procedure edtValorParcelaExit(Sender: TObject);
+    procedure mnuBaixarClick(Sender: TObject);
   private
     { Private declarations }
     procedure cadastrarParcelas;
@@ -69,7 +72,8 @@ var
 implementation
 
 uses
-  finan.Utilitarios, System.SysUtils, System.DateUtils;
+  finan.Utilitarios, System.SysUtils, System.DateUtils,
+  finan.view.Contas.Pagar.Baixar;
 
 {$R *.dfm}
 
@@ -101,7 +105,7 @@ begin
   edtValorCompra.Text := TUtilitarios.FormatarValor(dmContasPagar.cdsContasPagarvalor_compra.AsCurrency);
   dateCompra.DateTime := dmContasPagar.cdsContasPagardata_compra.AsDateTime;
   edtParcela.Text := dmContasPagar.cdsContasPagarparcela.AsString;
-  edtValorParcela.Text := dmContasPagar.cdsContasPagarvalor_parcela.AsString;
+  edtValorParcela.Text := TUtilitarios.FormatarValor(dmContasPagar.cdsContasPagarvalor_parcela.AsCurrency);
   dateVencimento.DateTime := dmContasPagar.cdsContasPagardata_vencimento.AsDateTime;
 end;
 
@@ -348,6 +352,12 @@ begin
   inherited;
   edtValorCompra.OnKeyPress := TUtilitarios.KeyPressValor;
   edtValorParcela.OnKeyPress := TUtilitarios.KeyPressValor;
+end;
+
+procedure TfrmContasPagar.mnuBaixarClick(Sender: TObject);
+begin
+  frmContasPagarBaixar.baixarContaPagar(DataSource1.DataSet.FieldByName('ID').AsString);
+  Pesquisar;
 end;
 
 procedure TfrmContasPagar.Pesquisar;

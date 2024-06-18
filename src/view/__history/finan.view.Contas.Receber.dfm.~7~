@@ -1,7 +1,0 @@
-inherited frmContasReceber: TfrmContasReceber
-  Caption = 'Cadastro Contas a Receber'
-  TextHeight = 21
-  inherited DataSource1: TDataSource
-    DataSet = dmContasReceber.cdsContasReceber
-  end
-end

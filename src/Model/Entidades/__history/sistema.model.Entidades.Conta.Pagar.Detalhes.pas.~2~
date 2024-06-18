@@ -1,0 +1,55 @@
+unit sistema.model.Entidades.Conta.Pagar.Detalhes;
+
+interface
+type
+  TModelContaPagarDetalhe = class
+    private
+    FValor: Currency;
+    FDetalhes: String;
+    FID: String;
+    FUsuario: String;
+    FID_CONTA_PAGAR: String;
+    procedure SetDetalhes(const Value: String);
+    procedure SetID(const Value: String);
+    procedure SetID_CONTA_PAGAR(const Value: String);
+    procedure SetUsuario(const Value: String);
+    procedure SetValor(const Value: Currency);
+
+    public
+      property ID : String read FID write SetID;
+      property ID_CONTA_PAGAR : String read FID_CONTA_PAGAR write SetID_CONTA_PAGAR;
+      property Detalhes : String read FDetalhes write SetDetalhes;
+      property Valor : Currency read FValor write SetValor;
+      property Usuario : String read FUsuario write SetUsuario;
+  end;
+
+implementation
+
+{ TModelContaPagarDetalhe }
+
+procedure TModelContaPagarDetalhe.SetDetalhes(const Value: String);
+begin
+  FDetalhes := Value;
+end;
+
+procedure TModelContaPagarDetalhe.SetID(const Value: String);
+begin
+  FID := Value;
+end;
+
+procedure TModelContaPagarDetalhe.SetID_CONTA_PAGAR(const Value: String);
+begin
+  FID_CONTA_PAGAR := Value;
+end;
+
+procedure TModelContaPagarDetalhe.SetUsuario(const Value: String);
+begin
+  FUsuario := Value;
+end;
+
+procedure TModelContaPagarDetalhe.SetValor(const Value: Currency);
+begin
+  FValor := Value;
+end;
+
+end.

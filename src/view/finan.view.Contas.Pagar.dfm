@@ -71,7 +71,7 @@ inherited frmContasPagar: TfrmContasPagar
         Top = 158
         Width = 505
         Height = 228
-        ActiveCard = cardParcelamento
+        ActiveCard = cardParcelaUnica
         BevelOuter = bvNone
         Caption = 'cardParcela'
         TabOrder = 5
@@ -255,6 +255,7 @@ inherited frmContasPagar: TfrmContasPagar
       end
       inherited pnlGrid: TPanel
         inherited DBGrid1: TDBGrid
+          PopupMenu = PopupMenu1
           Columns = <
             item
               Expanded = False
@@ -1995,5 +1996,13 @@ inherited frmContasPagar: TfrmContasPagar
     DataSet = cdsParcelas
     Left = 548
     Top = 320
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 632
+    Top = 168
+    object mnuBaixar: TMenuItem
+      Caption = 'Baixar'
+      OnClick = mnuBaixarClick
+    end
   end
 end

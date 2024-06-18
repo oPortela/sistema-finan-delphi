@@ -1,4 +1,0 @@
-inherited formCadastroPadrao1: TformCadastroPadrao1
-  Caption = 'formCadastroPadrao1'
-  TextHeight = 21
-end
