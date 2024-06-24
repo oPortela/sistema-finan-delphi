@@ -182,6 +182,16 @@
         </DCCReference>
         <DCCReference Include="src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.pas"/>
         <DCCReference Include="src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.Detalhes.pas"/>
+        <DCCReference Include="src\Model\Entidades\sistema.model.Entidades.Conta.Receber.pas"/>
+        <DCCReference Include="src\Model\Entidades\sistema.model.Entidades.Conta.Receber.Detalhes.pas"/>
+        <DCCReference Include="src\view\finan.view.Contas.Receber.Baixar.pas">
+            <Form>frmContasReceberBaixar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\view\finan.view.Contas.Receber.Consultar.pas">
+            <Form>frmConsultarContasReceber</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -1,0 +1,68 @@
+unit finan.view.Contas.Receber.Baixar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, finan.view.Contas.Pagar.Baixar,
+  System.ImageList, Vcl.ImgList, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TfrmContasReceberBaixar = class(TfrmContasPagarBaixar)
+    procedure btnCancelarClick(Sender: TObject);
+  private
+    { Private declarations }
+    FID : String;
+  public
+    { Public declarations }
+    procedure baixarContaReceber(ID : String);
+  end;
+
+var
+  frmContasReceberBaixar: TfrmContasReceberBaixar;
+
+implementation
+
+uses
+  sistema.model.Entidades.Conta.Receber;
+
+{$R *.dfm}
+
+procedure TfrmContasReceberBaixar.baixarContaReceber(ID: String);
+var
+  ContaReceber : TModelContaReceber;
+begin
+  FID := Trim(ID);
+  if FID.IsEmpty then
+    raise Exception.Create('ID do contas a pagar inválido!');
+
+  ContaReceber := dmContaReceber.GetContaPagar(FID);
+  try
+    if ContaPagar.Status = 'B' then
+      raise Exception.Create('Não é possível baixar um documento baixado!');
+
+    if ContaPagar.Status = 'C' then
+      raise Exception.Create('Não é possível baixar um documento cancelado!');
+
+    lblDocumento.Caption := ContaPagar.Documento;
+    lblParcela.Caption := ContaPagar.Parcela.ToString;
+    lblVencimento.Caption := FormatDateTime('dd/mm/yyyy', ContaPagar.DataVencimento);
+    lblValorAbatido.Caption := TUtilitarios.FormatarValor(ContaPagar.ValorAbatido);
+    lblValorParcela.Caption := TUtilitarios.FormatarValor(ContaPagar.ValorParcela);
+    edtObservacao.Text := '';
+    edtValor.Text := '';
+
+    Self.ShowModal;
+  finally
+    ContaPagar.Free;
+  end;
+
+
+end;
+
+procedure TfrmContasReceberBaixar.btnCancelarClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+end.

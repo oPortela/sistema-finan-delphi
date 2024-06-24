@@ -1,0 +1,7 @@
+unit sistema.model.Entidades.Conta.Receber.Detalhes;
+
+interface
+
+implementation
+
+end.

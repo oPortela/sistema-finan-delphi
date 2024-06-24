@@ -32,6 +32,8 @@ type
     cdsContasPagarstatus: TStringField;
   private
     { Private declarations }
+    procedure gravarContaPagar(ContaPagar : TModelContaPagar; SQLGravar : TFDQuery);
+    procedure gravarContaPagarDetalhes(ContaPagarDetalhes : TModelContaPagarDetalhe; SQLGravar : TFDQuery);
   public
     { Public declarations }
     function GetContaPagar(ID : String) : TModelContaPagar;
@@ -55,8 +57,11 @@ var
   SQLGravar : TFDQuery;
   SQL : String;
 begin
-  ContaPagar := GetContaPagar(BaixarPagar.ID);
+  ContaPagar := GetContaPagar(BaixarPagar.IdContaPagar);
   try
+    if ContaPagar.ID = '' then
+      raise Exception.Create('Conta a Pagar não encontrado!');
+
     ContaPagar.ValorAbatido := ContaPagar.ValorAbatido + BaixarPagar.Valor;
 
     if ContaPagar.ValorAbatido >= ContaPagar.ValorParcela then
@@ -65,35 +70,13 @@ begin
       ContaPagar.DataPagamento := Now;
     end;
 
+    BaixarPagar.ID := TUtilitarios.GetId;
+
     SQLGravar := TFDQuery.Create(nil);
     try
       SQLGravar.Connection := dmConexao.SQLConexao;
-
-      SQL := 'UPDATE CONTAS_PAGAR SET VALOR_ABATIDO = :VALORABATIDO,' +
-           ' VALOR_PARCELA = :VALORPARCELA,' +
-           ' STATUS = :STATUS,' +
-           ' DATA_PAGAMENTO = :DATAPAGAMENTO' +
-           ' WHERE ID = :IDCONTAPAGAR;';
-
-      SQLGravar.SQL.Clear;
-      SQLGravar.SQL.Add(sql);
-      SQLGravar.ParamByName('VALORABATIDO').AsCurrency := ContaPagar.ValorAbatido;
-      SQLGravar.ParamByName('VALORPARCELA').AsCurrency := ContaPagar.ValorParcela;
-      SQLGravar.ParamByName('STATUS').AsString := ContaPagar.Status;
-      SQLGravar.ParamByName('DATAPAGAMENTO').AsDateTime := ContaPagar.DataPagamento;
-      SQLGravar.ParamByName('IDCONTAPAGAR').AsString := ContaPagar.ID;
-
-      SQL := 'INSERT INTO CONTAS_PAGAR_DETALHES (ID, ID_CONTAS_PAGAR, DETALHES, VALOR, DATA, USUARIO) ' +
-             'VALUES (:IDDETALHE, :IDCONTAPAGAR, :DETALHES, :VALOR, :DATA, :USUARIO);';
-      SQLGravar.SQL.Add(sql);
-      SQLGravar.ParamByName('IDDETALHE').AsString := TUtilitarios.GetId;
-      SQLGravar.ParamByName('DETALHES').AsString := BaixarPagar.Detalhes;
-      SQLGravar.ParamByName('VALOR').AsCurrency := BaixarPagar.Valor;
-      SQLGravar.ParamByName('DATA').AsDateTime := BaixarPagar.Data;
-      SQLGravar.ParamByName('USUARIO').AsString := BaixarPagar.Usuario;
-
-      SQLGravar.Prepare;
-      SQLGravar.ExecSQL;
+      gravarContaPagar(ContaPagar, SQLGravar);
+      gravarContaPagarDetalhes(BaixarPagar, SQLGravar);
     finally
       SQLGravar.Free;
     end;
@@ -136,6 +119,51 @@ begin
   finally
     SQLConsulta.Free;
   end;
+end;
+
+procedure TdmContasPagar.gravarContaPagar(ContaPagar : TModelContaPagar; SQLGravar : TFDQuery);
+var
+  SQL : String;
+begin
+  SQL := 'UPDATE CONTAS_PAGAR SET VALOR_ABATIDO = :VALORABATIDO,' +
+           ' VALOR_PARCELA = :VALORPARCELA,' +
+           ' STATUS = :STATUS,' +
+           ' DATA_PAGAMENTO = :DATAPAGAMENTO' +
+           ' WHERE ID = :IDCONTAPAGAR;';
+
+  SQLGravar.SQL.Clear;
+  SQLGravar.Params.Clear;
+
+  SQLGravar.SQL.Add(sql);
+  SQLGravar.ParamByName('VALORABATIDO').AsCurrency := ContaPagar.ValorAbatido;
+  SQLGravar.ParamByName('VALORPARCELA').AsCurrency := ContaPagar.ValorParcela;
+  SQLGravar.ParamByName('STATUS').AsString := ContaPagar.Status;
+  TUtilitarios.ValidarData(SQLGravar.ParamByName('DATAPAGAMENTO'), ContaPagar.DataPagamento);
+  SQLGravar.ParamByName('IDCONTAPAGAR').AsString := ContaPagar.ID;
+
+  SQLGravar.Prepare;
+  SQLGravar.ExecSQL;
+end;
+
+procedure TdmContasPagar.gravarContaPagarDetalhes(ContaPagarDetalhes : TModelContaPagarDetalhe; SQLGravar : TFDQuery);
+var
+  SQL : String;
+begin
+  SQL := 'INSERT INTO CONTAS_PAGAR_DETALHES (ID, ID_CONTAS_PAGAR, DETALHES, VALOR, DATA, USUARIO) ' +
+             'VALUES (:IDDETALHE, :IDCONTAPAGAR, :DETALHES, :VALOR, :DATA, :USUARIO);';
+  SQLGravar.SQL.Clear;
+  SQLGravar.Params.Clear;
+
+  SQLGravar.SQL.Add(sql);
+  SQLGravar.ParamByName('IDDETALHE').AsString := ContaPagarDetalhes.ID;
+  SQLGravar.ParamByName('IDCONTAPAGAR').AsString := ContaPagarDetalhes.IDContaPagar;
+  SQLGravar.ParamByName('DETALHES').AsString := ContaPagarDetalhes.Detalhes;
+  SQLGravar.ParamByName('VALOR').AsCurrency := ContaPagarDetalhes.Valor;
+  SQLGravar.ParamByName('DATA').AsDateTime := ContaPagarDetalhes.Data;
+  SQLGravar.ParamByName('USUARIO').AsString := ContaPagarDetalhes.Usuario;
+
+  SQLGravar.Prepare;
+  SQLGravar.ExecSQL;
 end;
 
 end.

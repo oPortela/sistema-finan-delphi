@@ -3,8 +3,6 @@ inherited formUsuarios: TformUsuarios
   TextHeight = 21
   inherited PnlPrincipal: TCardPanel
     inherited cardCadastro: TCard
-      ExplicitLeft = -96
-      ExplicitTop = -8
       object Label2: TLabel [0]
         Left = 16
         Top = 59

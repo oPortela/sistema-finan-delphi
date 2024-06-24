@@ -1,0 +1,25 @@
+unit finan.view.Contas.Pagar.Receber;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, finan.view.Contas.Pagar.Baixar,
+  System.ImageList, Vcl.ImgList, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TfrmContasReceberBaixar = class(TfrmContasPagarBaixar)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmContasReceberBaixar: TfrmContasReceberBaixar;
+
+implementation
+
+{$R *.dfm}
+
+end.

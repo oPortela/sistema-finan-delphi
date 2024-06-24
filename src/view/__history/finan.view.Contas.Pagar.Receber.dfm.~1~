@@ -1,0 +1,4 @@
+inherited frmContasPagarBaixar1: TfrmContasPagarBaixar1
+  Caption = 'frmContasPagarBaixar1'
+  TextHeight = 15
+end

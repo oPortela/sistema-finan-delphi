@@ -1,0 +1,38 @@
+unit finan.view.Contas.Receber.Baixar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, finan.view.Contas.Pagar.Baixar,
+  System.ImageList, Vcl.ImgList, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TfrmContasReceberBaixar = class(TfrmContasPagarBaixar)
+    procedure btnCancelarClick(Sender: TObject);
+  private
+    { Private declarations }
+    FID : String;
+  public
+    { Public declarations }
+    procedure baixarContaReceber(ID : String);
+  end;
+
+var
+  frmContasReceberBaixar: TfrmContasReceberBaixar;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmContasReceberBaixar.baixarContaReceber(ID: String);
+begin
+
+end;
+
+procedure TfrmContasReceberBaixar.btnCancelarClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+end.

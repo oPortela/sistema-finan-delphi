@@ -3,7 +3,7 @@ unit finan.Utilitarios;
 interface
 
 uses
-  Vcl.DBGrids;
+  Vcl.DBGrids, FireDAC.Stan.Param;
 type
   TUtilitarios = class
     class function GetId : String;
@@ -13,6 +13,7 @@ type
     class function FormatarValor(aValue : String; Decimais : Integer = 2): String; overload;
     class procedure KeyPressValor(Sender: TObject; var Key: Char);
     class function TruncarValor(aValue : Currency; Decimais : Integer = 2): Currency;
+    class procedure ValidarData(FieldParam : TFDParam; Data : TDateTime);
   end;
 
 implementation
@@ -87,6 +88,13 @@ var
 begin
   LFator := Power(10, Decimais);
   Result := Trunc(aValue * LFator) / LFator;
+end;
+
+class procedure TUtilitarios.ValidarData(FieldParam: TFDParam; Data: TDateTime);
+begin
+  FieldParam.AsDateTime := Data;
+  if Data = 0 then
+    FieldParam.Clear;
 end;
 
 end.

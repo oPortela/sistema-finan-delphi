@@ -23,7 +23,11 @@ uses
   finan.view.Contas.Receber in 'src\view\finan.view.Contas.Receber.pas' {frmContasReceber},
   finan.view.Contas.Pagar.Baixar in 'src\view\finan.view.Contas.Pagar.Baixar.pas' {frmContasPagarBaixar},
   sistema.model.Entidades.Conta.Pagar in 'src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.pas',
-  sistema.model.Entidades.Conta.Pagar.Detalhes in 'src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.Detalhes.pas';
+  sistema.model.Entidades.Conta.Pagar.Detalhes in 'src\Model\Entidades\sistema.model.Entidades.Conta.Pagar.Detalhes.pas',
+  sistema.model.Entidades.Conta.Receber in 'src\Model\Entidades\sistema.model.Entidades.Conta.Receber.pas',
+  sistema.model.Entidades.Conta.Receber.Detalhes in 'src\Model\Entidades\sistema.model.Entidades.Conta.Receber.Detalhes.pas',
+  finan.view.Contas.Receber.Baixar in 'src\view\finan.view.Contas.Receber.Baixar.pas' {frmContasReceberBaixar},
+  finan.view.Contas.Receber.Consultar in 'src\view\finan.view.Contas.Receber.Consultar.pas' {frmConsultarContasReceber};
 
 {$R *.res}
 
@@ -44,5 +48,7 @@ begin
   Application.CreateForm(TdmContasReceber, dmContasReceber);
   Application.CreateForm(TfrmContasReceber, frmContasReceber);
   Application.CreateForm(TfrmContasPagarBaixar, frmContasPagarBaixar);
+  Application.CreateForm(TfrmContasReceberBaixar, frmContasReceberBaixar);
+  Application.CreateForm(TfrmConsultarContasReceber, frmConsultarContasReceber);
   Application.Run;
 end.

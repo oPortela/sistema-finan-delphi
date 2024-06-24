@@ -13,6 +13,7 @@ object frmContasPagarBaixar: TfrmContasPagarBaixar
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnCreate = FormCreate
   TextHeight = 15
   object pnlPrincipal: TPanel
     Left = 0
@@ -184,6 +185,7 @@ object frmContasPagarBaixar: TfrmContasPagarBaixar
           Width = 257
           Height = 23
           TabOrder = 0
+          OnExit = edtValorExit
         end
         object edtObservacao: TEdit
           Left = 104

@@ -1,0 +1,13 @@
+unit sistema.model.Entidades.Conta.Receber.Detalhes;
+
+interface
+type
+  TModelContaReceberDetalhes = class
+    private
+    public
+
+  end;
+
+implementation
+
+end.

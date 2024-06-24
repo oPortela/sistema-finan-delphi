@@ -20,6 +20,7 @@ type
     mnuResumoCaixa: TMenuItem;
     mnuContasPagar: TMenuItem;
     mnuContasReceber: TMenuItem;
+    mnuContasReceberConsultar: TMenuItem;
     procedure menuCadastroPadraoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure mnuUsuariosClick(Sender: TObject);
@@ -28,6 +29,7 @@ type
     procedure mnuResumoCaixaClick(Sender: TObject);
     procedure mnuContasPagarClick(Sender: TObject);
     procedure mnuContasReceberClick(Sender: TObject);
+    procedure mnuContasReceberConsultarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,7 +45,8 @@ uses
   finan.view.cadastroPadrao,
   finan.view.splash, finan.view.Usuario, finan.view.Login,
   sistema.model.usuarios, finan.view.RedefinirSenha, finan.view.Caixa,
-  finan.view.Caixa.Saldo, finan.view.Contas.Pagar, finan.view.Contas.Receber;
+  finan.view.Caixa.Saldo, finan.view.Contas.Pagar, finan.view.Contas.Receber,
+  finan.view.Contas.Receber.Consultar;
 
 {$R *.dfm}
 
@@ -100,6 +103,11 @@ end;
 procedure TfrmPrincipal.mnuContasReceberClick(Sender: TObject);
 begin
   frmContasReceber.Show;
+end;
+
+procedure TfrmPrincipal.mnuContasReceberConsultarClick(Sender: TObject);
+begin
+  frmConsultarContasReceber.Show;
 end;
 
 procedure TfrmPrincipal.mnuResumoCaixaClick(Sender: TObject);
