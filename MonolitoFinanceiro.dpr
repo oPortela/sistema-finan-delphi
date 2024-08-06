@@ -27,7 +27,12 @@ uses
   sistema.model.Entidades.Conta.Receber in 'src\Model\Entidades\sistema.model.Entidades.Conta.Receber.pas',
   sistema.model.Entidades.Conta.Receber.Detalhes in 'src\Model\Entidades\sistema.model.Entidades.Conta.Receber.Detalhes.pas',
   finan.view.Contas.Receber.Baixar in 'src\view\finan.view.Contas.Receber.Baixar.pas' {frmContasReceberBaixar},
-  finan.view.Contas.Receber.Consultar in 'src\view\finan.view.Contas.Receber.Consultar.pas' {frmConsultarContasReceber};
+  finan.view.Contas.Pagar.Consultar in 'src\view\finan.view.Contas.Pagar.Consultar.pas' {frmConsultarContasPagar},
+  finan.view.Contas.Pagar.ConsultarDetalhes in 'src\view\finan.view.Contas.Pagar.ConsultarDetalhes.pas' {frmConsultarPagarDetalhes},
+  finan.view.Contas.Receber.Consultar in 'src\view\finan.view.Contas.Receber.Consultar.pas' {frmConsultarContasReceber},
+  finan.view.Contas.Receber.ConsultarDetalhes in 'src\view\finan.view.Contas.Receber.ConsultarDetalhes.pas' {frmConsultarDetalhes},
+  sistema.model.Entidades.CaixaLancamento in 'src\Model\Entidades\sistema.model.Entidades.CaixaLancamento.pas',
+  finan.view.Relatorio.Usuarios in 'src\view\Relatorios\finan.view.Relatorio.Usuarios.pas' {frmRelatorioUsuarios};
 
 {$R *.res}
 
@@ -49,6 +54,10 @@ begin
   Application.CreateForm(TfrmContasReceber, frmContasReceber);
   Application.CreateForm(TfrmContasPagarBaixar, frmContasPagarBaixar);
   Application.CreateForm(TfrmContasReceberBaixar, frmContasReceberBaixar);
+  Application.CreateForm(TfrmConsultarContasPagar, frmConsultarContasPagar);
+  Application.CreateForm(TfrmConsultarPagarDetalhes, frmConsultarPagarDetalhes);
   Application.CreateForm(TfrmConsultarContasReceber, frmConsultarContasReceber);
+  Application.CreateForm(TfrmConsultarDetalhes, frmConsultarDetalhes);
+  Application.CreateForm(TfrmRelatorioUsuarios, frmRelatorioUsuarios);
   Application.Run;
 end.

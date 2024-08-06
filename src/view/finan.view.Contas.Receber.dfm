@@ -3,6 +3,7 @@ inherited frmContasReceber: TfrmContasReceber
   OnCreate = FormCreate
   TextHeight = 21
   inherited PnlPrincipal: TCardPanel
+    ActiveCard = cardCadastro
     inherited cardCadastro: TCard
       object Label2: TLabel [0]
         Left = 24

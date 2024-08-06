@@ -7,7 +7,8 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, Datasnap.Provider, Data.DB, Datasnap.DBClient, sistema.model.conexao,
-  sistema.model.Entidades.Caixa.Resumo;
+  sistema.model.Entidades.Caixa.Resumo,
+  sistema.model.Entidades.CaixaLancamento;
 
 type
   TdmCaixa = class(TDataModule)
@@ -28,6 +29,7 @@ type
   public
     { Public declarations }
     function ResumoCaixa(DataInicial, DataFinal : TDate) : TModelResumoCaixa;
+    procedure gravarLancamento(aValue : TModelCaixaLancamento; SQLGravar : TFDQuery);
   end;
 
 var
@@ -113,6 +115,26 @@ begin
   finally
     SQLConsulta.Free;
   end;
+end;
+
+procedure TdmCaixa.gravarLancamento(aValue: TModelCaixaLancamento; SQLGravar : TFDQuery);
+var
+  SQL : String;
+begin
+  SQL := 'INSERT INTO CAIXA (ID, NUMERO_DOC, DESCRICAO, VALOR, TIPO, DATA_CADASTRO) ' +
+         'VALUES (:IDCAIXA, :NUMERO_DOC, :DESCRICAO, :VALOR, :TIPO, :DATA)';
+
+  SQLGravar.SQL.Clear;
+  SQLGravar.Params.Clear;
+  SQLGravar.SQL.Add(SQL);
+  SQLGravar.ParamByName('IDCAIXA').AsString := aValue.ID;
+  SQLGravar.ParamByName('NUMERO_DOC').AsString := aValue.NumeroDoc;
+  SQLGravar.ParamByName('DESCRICAO').AsString := aValue.Descricao;
+  SQLGravar.ParamByName('VALOR').AsCurrency := aValue.Valor;
+  SQLGravar.ParamByName('TIPO').AsString := aValue.Tipo;
+  SQLGravar.ParamByName('DATA').AsDate := aValue.DataCadastro;
+  SQLGravar.Prepare;
+  SQLGravar.ExecSQL;
 end;
 
 function TdmCaixa.ResumoCaixa(DataInicial, DataFinal: TDate): TModelResumoCaixa;

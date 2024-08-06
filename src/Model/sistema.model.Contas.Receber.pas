@@ -32,6 +32,16 @@ type
     cdsContasReceberdata_vencimento: TDateField;
     cdsContasReceberdata_recebimento: TDateField;
     cdsContasReceberstatus: TStringField;
+    sqlReceberDetalhes: TFDQuery;
+    sqlReceberDetalhesid_conta_receber: TStringField;
+    sqlReceberDetalhesdetalhes: TStringField;
+    sqlReceberDetalhesvalor: TFMTBCDField;
+    sqlReceberDetalhesdata: TDateField;
+    sqlReceberDetalhesusuario: TStringField;
+    sqlReceberDetalhesTotal: TAggregateField;
+    cdsContasReceberTotal: TAggregateField;
+    sqlReceberDetalhesid: TStringField;
+    sqlReceberDetalhesNome: TStringField;
   private
     { Private declarations }
     procedure gravarContaReceber(ContaReceber : TModelContaReceber; SQLGravar : TFDQuery);
@@ -48,7 +58,8 @@ var
 implementation
 
 uses
-  finan.Utilitarios;
+  finan.Utilitarios, sistema.model.Entidades.CaixaLancamento,
+  sistema.model.Caixa;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -63,6 +74,7 @@ var
   ContaReceber : TModelContaReceber;
   SQLGravar : TFDQuery;
   SQL : String;
+  LancamentoCaixa : TModelCaixaLancamento;
 begin
   ContaReceber := GetContaReceber(BaixarReceber.IdContaReceber);
   try
@@ -79,13 +91,35 @@ begin
 
     BaixarReceber.ID := TUtilitarios.GetId;
 
-    SQLGravar := TFDQuery.Create(nil);
+    LancamentoCaixa := TModelCaixaLancamento.Create;
     try
-      SQLGravar.Connection := dmConexao.SQLConexao;
-      gravarContaReceber(ContaReceber, SQLGravar);
-      gravarContaReceberDetalhes(BaixarReceber, SQLGravar);
+      LancamentoCaixa.ID := TUtilitarios.GetId;
+      LancamentoCaixa.NumeroDoc := ContaReceber.Documento;
+      LancamentoCaixa.Descricao := Format('Baixa Conta Pagar Número %s - Parcela %d', [ContaReceber.Documento, ContaReceber.Parcela]);
+      LancamentoCaixa.Valor := BaixarReceber.Valor;
+      LancamentoCaixa.Tipo := 'R';
+      LancamentoCaixa.DataCadastro := Now;
+      SQLGravar := TFDQuery.Create(nil);
+      try
+        SQLGravar.Connection := dmConexao.SQLConexao;
+
+        dmConexao.SQLConexao.StartTransaction;
+        try
+          gravarContaReceber(ContaReceber, SQLGravar);
+          gravarContaReceberDetalhes(BaixarReceber, SQLGravar);
+          dmCaixa.gravarLancamento(LancamentoCaixa, SQLGravar);
+
+          dmConexao.SQLConexao.Commit;
+        except
+          dmConexao.SQLConexao.Rollback;
+          raise;
+        end;
+
+      finally
+        SQLGravar.Free;
+      end;
     finally
-      SQLGravar.Free;
+      LancamentoCaixa.Free;
     end;
 
   finally

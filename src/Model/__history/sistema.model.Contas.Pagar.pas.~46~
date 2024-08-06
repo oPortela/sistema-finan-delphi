@@ -1,0 +1,195 @@
+unit sistema.model.Contas.Pagar;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Datasnap.Provider, Data.DB, Datasnap.DBClient, sistema.model.conexao,
+  FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
+  FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs,
+  FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.VCLUI.Wait,
+  sistema.model.Entidades.Conta.Pagar, sistema.model.Caixa,
+  sistema.model.Entidades.Conta.Pagar.Detalhes, finan.Utilitarios;
+
+type
+  TdmContasPagar = class(TDataModule)
+    cdsContasPagar: TClientDataSet;
+    dspContasPagar: TDataSetProvider;
+    sqlContasPagar: TFDQuery;
+    cdsContasPagarid: TStringField;
+    cdsContasPagarnumero_documento: TStringField;
+    cdsContasPagardescricao: TStringField;
+    cdsContasPagarparcela: TIntegerField;
+    cdsContasPagarvalor_parcela: TFMTBCDField;
+    cdsContasPagarvalor_compra: TFMTBCDField;
+    cdsContasPagarvalor_abatido: TFMTBCDField;
+    cdsContasPagardata_compra: TDateField;
+    cdsContasPagardata_cadastro: TDateField;
+    cdsContasPagardata_vencimento: TDateField;
+    cdsContasPagardata_pagamento: TDateField;
+    cdsContasPagarstatus: TStringField;
+    cdsContasPagarTotal: TAggregateField;
+    sqlPagarDetalhes: TFDQuery;
+    sqlPagarDetalhesid: TStringField;
+    sqlPagarDetalhesid_conta_receber: TStringField;
+    sqlPagarDetalhesdetalhes: TStringField;
+    sqlPagarDetalhesvalor: TFMTBCDField;
+    sqlPagarDetalhesdata: TDateField;
+    sqlPagarDetalhesusuario: TStringField;
+    sqlPagarDetalhesNome: TStringField;
+    sqlPagarDetalhesTotal: TAggregateField;
+  private
+    { Private declarations }
+    procedure gravarContaPagar(ContaPagar : TModelContaPagar; SQLGravar : TFDQuery);
+    procedure gravarContaPagarDetalhes(ContaPagarDetalhes : TModelContaPagarDetalhe; SQLGravar : TFDQuery);
+  public
+    { Public declarations }
+    function GetContaPagar(ID : String) : TModelContaPagar;
+    procedure BaixarContaPagar(BaixarPagar : TModelContaPagarDetalhe);
+  end;
+
+var
+  dmContasPagar: TdmContasPagar;
+
+implementation
+
+uses
+  sistema.model.Entidades.CaixaLancamento;
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TdmContasPagar }
+
+procedure TdmContasPagar.BaixarContaPagar(BaixarPagar: TModelContaPagarDetalhe);
+var
+  ContaPagar : TModelContaPagar;
+  SQLGravar : TFDQuery;
+  SQL : String;
+  LancamentoCaixa : TModelCaixaLancamento;
+begin
+  ContaPagar := GetContaPagar(BaixarPagar.IdContaPagar);
+  try
+    if ContaPagar.ID = '' then
+      raise Exception.Create('Conta a Pagar não encontrado!');
+
+    ContaPagar.ValorAbatido := ContaPagar.ValorAbatido + BaixarPagar.Valor;
+
+    if ContaPagar.ValorAbatido >= ContaPagar.ValorParcela then
+    begin
+      ContaPagar.Status := 'B';
+      ContaPagar.DataPagamento := Now;
+    end;
+
+    BaixarPagar.ID := TUtilitarios.GetId;
+
+    LancamentoCaixa := TModelCaixaLancamento.Create;
+    try
+      LancamentoCaixa.ID := TUtilitarios.GetId;
+      LancamentoCaixa.NumeroDoc := ContaPagar.Documento;
+      LancamentoCaixa.Descricao := Format('Baixa Conta Pagar Número %s - Parcela %d', [ContaPagar.Documento, ContaPagar.Parcela]);
+      LancamentoCaixa.Valor := BaixarPagar.Valor;
+      LancamentoCaixa.Tipo := 'D';
+      LancamentoCaixa.DataCadastro := Now;
+      SQLGravar := TFDQuery.Create(nil);
+      try
+        SQLGravar.Connection := dmConexao.SQLConexao;
+        gravarContaPagar(ContaPagar, SQLGravar);
+        gravarContaPagarDetalhes(BaixarPagar, SQLGravar);
+        dmCaixa.gravarLancamento(LancamentoCaixa, SQLGravar);
+      finally
+        SQLGravar.Free;
+      end;
+    finally
+      LancamentoCaixa.Free;
+    end;
+
+  finally
+    ContaPagar.Free;
+  end;
+end;
+
+function TdmContasPagar.GetContaPagar(ID: String): TModelContaPagar;
+var
+  SQLConsulta : TFDQuery;
+begin
+  SQLCOnsulta := TFDQuery.Create(nil);
+  try
+    SQLConsulta.Connection := dmConexao.SQLConexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT * FROM CONTAS_PAGAR WHERE ID = :ID');
+    SQLConsulta.ParamByName('ID').AsString := ID;
+    SQLConsulta.Open;
+
+    Result := TModelContaPagar.Create;
+    try
+      Result.ID := SQLConsulta.FieldByName('ID').AsString;
+      Result.Documento := SQLConsulta.FieldByName('NUMERO_DOCUMENTO').AsString;
+      Result.Descricao := SQLConsulta.FieldByName('DESCRICAO').AsString;
+      Result.Parcela := SQLConsulta.FieldByName('PARCELA').AsInteger;
+      Result.ValorParcela := SQLConsulta.FieldByName('VALOR_PARCELA').AsCurrency;
+      Result.ValorCompra := SQLConsulta.FieldByName('VALOR_COMPRA').AsCurrency;
+      Result.ValorAbatido := SQLConsulta.FieldByName('VALOR_ABATIDO').AsCurrency;
+      Result.DataCompra := SQLConsulta.FieldByName('DATA_COMPRA').AsDateTime;
+      Result.DataCadastro := SQLConsulta.FieldByName('DATA_CADASTRO').AsDateTime;
+      Result.DataVencimento := SQLConsulta.FieldByName('DATA_VENCIMENTO').AsDateTime;
+      Result.DataPagamento := SQLConsulta.FieldByName('DATA_PAGAMENTO').AsDateTime;
+      Result.Status := SQLConsulta.FieldByName('STATUS').AsString;
+    except
+      Result.Free;
+      raise;
+    end;
+  finally
+    SQLConsulta.Free;
+  end;
+end;
+
+procedure TdmContasPagar.gravarContaPagar(ContaPagar : TModelContaPagar; SQLGravar : TFDQuery);
+var
+  SQL : String;
+begin
+  SQL := 'UPDATE CONTAS_PAGAR SET VALOR_ABATIDO = :VALORABATIDO,' +
+           ' VALOR_PARCELA = :VALORPARCELA,' +
+           ' STATUS = :STATUS,' +
+           ' DATA_PAGAMENTO = :DATAPAGAMENTO' +
+           ' WHERE ID = :IDCONTAPAGAR;';
+
+  SQLGravar.SQL.Clear;
+  SQLGravar.Params.Clear;
+
+  SQLGravar.SQL.Add(sql);
+  SQLGravar.ParamByName('VALORABATIDO').AsCurrency := ContaPagar.ValorAbatido;
+  SQLGravar.ParamByName('VALORPARCELA').AsCurrency := ContaPagar.ValorParcela;
+  SQLGravar.ParamByName('STATUS').AsString := ContaPagar.Status;
+  TUtilitarios.ValidarData(SQLGravar.ParamByName('DATAPAGAMENTO'), ContaPagar.DataPagamento);
+  SQLGravar.ParamByName('IDCONTAPAGAR').AsString := ContaPagar.ID;
+
+  SQLGravar.Prepare;
+  SQLGravar.ExecSQL;
+end;
+
+procedure TdmContasPagar.gravarContaPagarDetalhes(ContaPagarDetalhes : TModelContaPagarDetalhe; SQLGravar : TFDQuery);
+var
+  SQL : String;
+begin
+  SQL := 'INSERT INTO CONTAS_PAGAR_DETALHES (ID, ID_CONTAS_PAGAR, DETALHES, VALOR, DATA, USUARIO) ' +
+             'VALUES (:IDDETALHE, :IDCONTAPAGAR, :DETALHES, :VALOR, :DATA, :USUARIO);';
+  SQLGravar.SQL.Clear;
+  SQLGravar.Params.Clear;
+
+  SQLGravar.SQL.Add(sql);
+  SQLGravar.ParamByName('IDDETALHE').AsString := ContaPagarDetalhes.ID;
+  SQLGravar.ParamByName('IDCONTAPAGAR').AsString := ContaPagarDetalhes.IDContaPagar;
+  SQLGravar.ParamByName('DETALHES').AsString := ContaPagarDetalhes.Detalhes;
+  SQLGravar.ParamByName('VALOR').AsCurrency := ContaPagarDetalhes.Valor;
+  SQLGravar.ParamByName('DATA').AsDateTime := ContaPagarDetalhes.Data;
+  SQLGravar.ParamByName('USUARIO').AsString := ContaPagarDetalhes.Usuario;
+
+  SQLGravar.Prepare;
+  SQLGravar.ExecSQL;
+end;
+
+end.

@@ -1,0 +1,99 @@
+unit finan.view.Contas.Receber.ConsultarDetalhes;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, System.ImageList, Vcl.ImgList, Vcl.StdCtrls, sistema.model.Contas.Receber;
+
+type
+  TfrmConsultarDetalhes = class(TForm)
+    Panel1: TPanel;
+    pnlBottom: TPanel;
+    pnlGrid: TPanel;
+    pnlCabecalho: TPanel;
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    ImageList1: TImageList;
+    btnFechar: TButton;
+    panel: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    label10: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    lblNumeroDocumento: TLabel;
+    lblVencimento: TLabel;
+    lblNumeroParcela: TLabel;
+    Panel6: TPanel;
+    lblDescricao: TLabel;
+    lblValorVenda: TLabel;
+    lblValorParcela: TLabel;
+    Panel7: TPanel;
+    Label6: TLabel;
+    label20: TLabel;
+    Label8: TLabel;
+    Panel2: TPanel;
+    lblQtdRegistros: TLabel;
+    lblTotalDetalhes: TLabel;
+    procedure btnFecharClick(Sender: TObject);
+  private
+    { Private declarations }
+    SQL : String;
+  public
+    { Public declarations }
+    procedure exibirContasReceberDetalhes(IDContaReceber : String);
+  end;
+
+var
+  frmConsultarDetalhes: TfrmConsultarDetalhes;
+
+implementation
+
+uses
+  sistema.model.Entidades.Conta.Receber, finan.Utilitarios;
+
+{$R *.dfm}
+
+procedure TfrmConsultarDetalhes.btnFecharClick(Sender: TObject);
+begin
+  ModalResult := MrOK;
+end;
+
+procedure TfrmConsultarDetalhes.exibirContasReceberDetalhes(IDContaReceber: String);
+var
+  ContaReceber : TModelContaReceber;
+begin
+  if IDContaReceber.IsEmpty then
+    raise Exception.Create('ID do contas a receber inválido!');
+
+  ContaReceber := dmContasReceber.GetContaReceber(IDContaReceber);
+
+  try
+    if ContaReceber.ID.IsEmpty then
+      raise Exception.Create('Contas a receber não encontrado!');
+
+      lblNumeroDocumento.Caption := ContaReceber.Documento;
+      lblDescricao.Caption := ContaReceber.Descricao;
+      lblVencimento.Caption := FormatDateTime('DD/MM/YYYY', ContaReceber.DataVencimento);
+      lblNumeroParcela.Caption := ContaReceber.Parcela.ToString;
+      lblValorVenda.Caption := tutilitarios.FormatoMoeda(ContaReceber.ValorVenda);
+      lblValorParcela.Caption := tutilitarios.FormatoMoeda(ContaReceber.ValorParcela);
+  finally
+    ContaReceber.Free;
+  end;
+
+  SQL := 'SELECT * FROM CONTAS_RECEBER_DETALHES WHERE ID_CONTA_RECEBERR = :IDCONTARECEBER';
+  dmContasReceber.sqlReceberDetalhes.SQL.Clear;
+  dmContasReceber.sqlReceberDetalhes.SQL.Add(SQL);
+  dmContasReceber.sqlReceberDetalhes.Params.Clear;
+  dmContasReceber.sqlReceberDetalhes.ParamByName('IDCONTARECEBER').AsString := IDContaReceber;
+  dmContasReceber.sqlReceberDetalhes.Prepare;
+  dmContasReceber.sqlReceberDetalhes.Open;
+
+  Self.ShowModal;
+end;
+
+end.

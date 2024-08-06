@@ -3,10 +3,11 @@ object dmContasReceber: TdmContasReceber
   Width = 640
   object cdsContasReceber: TClientDataSet
     Aggregates = <>
+    AggregatesActive = True
     CommandText = 'select * from contas_receber;'
     Params = <>
     ProviderName = 'dspContasReceber'
-    Left = 408
+    Left = 416
     Top = 64
     object cdsContasReceberid: TStringField
       FieldName = 'id'
@@ -29,18 +30,21 @@ object dmContasReceber: TdmContasReceber
     object cdsContasRecebervalor_parcela: TFMTBCDField
       FieldName = 'valor_parcela'
       Required = True
+      DisplayFormat = 'R$ 0.00;R$ -0.00;'
       Precision = 18
       Size = 2
     end
     object cdsContasRecebervalor_venda: TFMTBCDField
       FieldName = 'valor_venda'
       Required = True
+      DisplayFormat = 'R$ 0.00;R$ -0.00;'
       Precision = 18
       Size = 2
     end
     object cdsContasRecebervalor_abatido: TFMTBCDField
       FieldName = 'valor_abatido'
       Required = True
+      DisplayFormat = 'R$ 0.00;R$ -0.00;'
       Precision = 18
       Size = 2
     end
@@ -65,6 +69,12 @@ object dmContasReceber: TdmContasReceber
       FixedChar = True
       Size = 1
     end
+    object cdsContasReceberTotal: TAggregateField
+      FieldName = 'Total'
+      Active = True
+      DisplayName = ''
+      Expression = 'SUM(VALOR_PARCELA)'
+    end
   end
   object dspContasReceber: TDataSetProvider
     DataSet = sqlContasReceber
@@ -78,5 +88,69 @@ object dmContasReceber: TdmContasReceber
       'select * from contas_receber;')
     Left = 192
     Top = 64
+  end
+  object sqlReceberDetalhes: TFDQuery
+    AggregatesActive = True
+    Connection = dmConexao.SQLConexao
+    SQL.Strings = (
+      'SELECT * FROM CONTAS_RECEBER_DETALHES')
+    Left = 208
+    Top = 160
+    object sqlReceberDetalhesid: TStringField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      FixedChar = True
+      Size = 36
+    end
+    object sqlReceberDetalhesid_conta_receber: TStringField
+      FieldName = 'id_conta_receber'
+      Origin = 'id_conta_receber'
+      Required = True
+      Visible = False
+      FixedChar = True
+      Size = 36
+    end
+    object sqlReceberDetalhesdetalhes: TStringField
+      DisplayLabel = 'Detalhes'
+      FieldName = 'detalhes'
+      Origin = 'detalhes'
+      Required = True
+      Size = 200
+    end
+    object sqlReceberDetalhesvalor: TFMTBCDField
+      DisplayLabel = 'Valor Abatido'
+      FieldName = 'valor'
+      Origin = 'valor'
+      Required = True
+      DisplayFormat = 'R$ 0.00;R$ -0.00;'
+      Precision = 18
+      Size = 2
+    end
+    object sqlReceberDetalhesdata: TDateField
+      DisplayLabel = 'Data da Baixa'
+      FieldName = 'data'
+      Origin = 'data'
+      Required = True
+    end
+    object sqlReceberDetalhesusuario: TStringField
+      DisplayLabel = 'Usu'#225'rio'
+      FieldName = 'usuario'
+      Origin = 'usuario'
+      Required = True
+      Size = 50
+    end
+    object sqlReceberDetalhesNome: TStringField
+      DisplayLabel = 'Usu'#225'rio'
+      FieldName = 'Nome'
+      Size = 50
+    end
+    object sqlReceberDetalhesTotal: TAggregateField
+      FieldName = 'Total'
+      Active = True
+      DisplayName = ''
+      Expression = 'SUM(VALOR)'
+    end
   end
 end

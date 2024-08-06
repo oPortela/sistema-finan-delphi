@@ -10,7 +10,7 @@ uses
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs,
   FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.VCLUI.Wait,
-  sistema.model.Entidades.Conta.Pagar,
+  sistema.model.Entidades.Conta.Pagar, sistema.model.Caixa,
   sistema.model.Entidades.Conta.Pagar.Detalhes, finan.Utilitarios;
 
 type
@@ -30,6 +30,16 @@ type
     cdsContasPagardata_vencimento: TDateField;
     cdsContasPagardata_pagamento: TDateField;
     cdsContasPagarstatus: TStringField;
+    cdsContasPagarTotal: TAggregateField;
+    sqlPagarDetalhes: TFDQuery;
+    sqlPagarDetalhesid: TStringField;
+    sqlPagarDetalhesid_conta_receber: TStringField;
+    sqlPagarDetalhesdetalhes: TStringField;
+    sqlPagarDetalhesvalor: TFMTBCDField;
+    sqlPagarDetalhesdata: TDateField;
+    sqlPagarDetalhesusuario: TStringField;
+    sqlPagarDetalhesNome: TStringField;
+    sqlPagarDetalhesTotal: TAggregateField;
   private
     { Private declarations }
     procedure gravarContaPagar(ContaPagar : TModelContaPagar; SQLGravar : TFDQuery);
@@ -45,6 +55,9 @@ var
 
 implementation
 
+uses
+  sistema.model.Entidades.CaixaLancamento;
+
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
@@ -56,6 +69,7 @@ var
   ContaPagar : TModelContaPagar;
   SQLGravar : TFDQuery;
   SQL : String;
+  LancamentoCaixa : TModelCaixaLancamento;
 begin
   ContaPagar := GetContaPagar(BaixarPagar.IdContaPagar);
   try
@@ -72,13 +86,35 @@ begin
 
     BaixarPagar.ID := TUtilitarios.GetId;
 
-    SQLGravar := TFDQuery.Create(nil);
+    LancamentoCaixa := TModelCaixaLancamento.Create;
     try
-      SQLGravar.Connection := dmConexao.SQLConexao;
-      gravarContaPagar(ContaPagar, SQLGravar);
-      gravarContaPagarDetalhes(BaixarPagar, SQLGravar);
+      LancamentoCaixa.ID := TUtilitarios.GetId;
+      LancamentoCaixa.NumeroDoc := ContaPagar.Documento;
+      LancamentoCaixa.Descricao := Format('Baixa Conta Pagar Número %s - Parcela %d', [ContaPagar.Documento, ContaPagar.Parcela]);
+      LancamentoCaixa.Valor := BaixarPagar.Valor;
+      LancamentoCaixa.Tipo := 'D';
+      LancamentoCaixa.DataCadastro := Now;
+      SQLGravar := TFDQuery.Create(nil);
+      try
+        SQLGravar.Connection := dmConexao.SQLConexao;
+
+        dmConexao.SQLConexao.StartTransaction;
+        try
+          gravarContaPagar(ContaPagar, SQLGravar);
+          gravarContaPagarDetalhes(BaixarPagar, SQLGravar);
+          dmCaixa.gravarLancamento(LancamentoCaixa, SQLGravar);
+
+          dmConexao.SQLConexao.Commit;
+        except
+          dmConexao.SQLConexao.Rollback;
+          raise;
+        end;
+
+      finally
+        SQLGravar.Free;
+      end;
     finally
-      SQLGravar.Free;
+      LancamentoCaixa.Free;
     end;
 
   finally

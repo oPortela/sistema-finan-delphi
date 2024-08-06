@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Sistema Financeiro'
-  ClientHeight = 441
-  ClientWidth = 624
+  ClientHeight = 468
+  ClientWidth = 630
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmPrincipal: TfrmPrincipal
   TextHeight = 15
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 422
-    Width = 624
+    Top = 449
+    Width = 630
     Height = 19
     Panels = <
       item
@@ -55,6 +55,10 @@ object frmPrincipal: TfrmPrincipal
       object mnuContasReceberConsultar: TMenuItem
         Caption = 'Consultar Contas a Receber'
         OnClick = mnuContasReceberConsultarClick
+      end
+      object mnuContasPagarConsultar: TMenuItem
+        Caption = 'Consultar Contas a Pagar'
+        OnClick = mnuContasPagarConsultarClick
       end
     end
     object mnuRelatorios: TMenuItem

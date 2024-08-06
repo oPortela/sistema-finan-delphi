@@ -281,14 +281,12 @@ inherited frmContasPagar: TfrmContasPagar
               Expanded = False
               FieldName = 'status'
               Title.Caption = 'Status'
-              Width = 64
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'parcela'
               Title.Caption = 'Parcela'
-              Width = 64
               Visible = True
             end
             item
@@ -316,21 +314,18 @@ inherited frmContasPagar: TfrmContasPagar
               Expanded = False
               FieldName = 'data_compra'
               Title.Caption = 'Data da Compra'
-              Width = 64
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'data_cadastro'
               Title.Caption = 'Data Cadastro'
-              Width = 64
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'data_pagamento'
               Title.Caption = 'Data de Pagamento'
-              Width = 64
               Visible = True
             end>
         end

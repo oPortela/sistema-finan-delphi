@@ -1,0 +1,155 @@
+unit sistema.model.Caixa;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Datasnap.Provider, Data.DB, Datasnap.DBClient, sistema.model.conexao,
+  sistema.model.Entidades.Caixa.Resumo,
+  sistema.model.Entidades.CaixaLancamento;
+
+type
+  TdmCaixa = class(TDataModule)
+    cdsCaixa: TClientDataSet;
+    dspCaixa: TDataSetProvider;
+    sqlCaixa: TFDQuery;
+    cdsCaixaid: TStringField;
+    cdsCaixaDescricao: TStringField;
+    cdsCaixaNumero_Doc: TStringField;
+    cdsCaixaValor: TFMTBCDField;
+    cdsCaixaTipo: TStringField;
+    cdsCaixaData_Cadastro: TDateField;
+  private
+    { Private declarations }
+    function GetSaldoAnteriorCaixa(Data : TDate) : Currency;
+    function GetTotalEntradasCaixa(DataInicial, DataFinal : TDate) : Currency;
+    function GetTotalSaidasCaixa(DataInicial, DataFinal : TDate) : Currency;
+  public
+    { Public declarations }
+    function ResumoCaixa(DataInicial, DataFinal : TDate) : TModelResumoCaixa;
+    procedure gravarLancamento(aValue : TModelCaixaLancamento; SQLGravar : TFDQuery);
+  end;
+
+var
+  dmCaixa: TdmCaixa;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+
+{ TdmCaixa }
+
+function TdmCaixa.GetSaldoAnteriorCaixa(Data: TDate): Currency;
+var
+  SQLConsulta : TFDQuery;
+  TotalEntradas : Currency;
+  TotalSaidas : Currency;
+begin
+  Result := 0;
+  SQLConsulta := TFDQuery.Create(nil);
+  try
+    //Calcular total de entradas
+    SQLConsulta.Connection := dmConexao.SQLConexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT IFNULL(SUM(VALOR), 0) AS VALOR FROM CAIXA WHERE TIPO = ''R''');
+    SQLConsulta.SQL.Add(' AND DATA_CADASTRO < :DATA');
+    SQLConsulta.ParamByName('DATA').AsDate := Data;
+    SQLConsulta.Open;
+    TotalEntradas := SQLConsulta.FieldByName('VALOR').AsCurrency;
+
+    //Calcular total de saídas
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT IFNULL(SUM(VALOR), 0) AS VALOR FROM CAIXA WHERE TIPO = ''D''');
+    SQLConsulta.SQL.Add(' AND DATA_CADASTRO < :DATA');
+    SQLConsulta.ParamByName('DATA').AsDate := Data;
+    SQLConsulta.Open;
+    TotalSaidas := SQLConsulta.FieldByName('VALOR').AsCurrency;
+  finally
+    SQLConsulta.Free;
+  end;
+
+  Result := TotalEntradas - TotalSaidas;
+end;
+
+function TdmCaixa.GetTotalEntradasCaixa(DataInicial, DataFinal: TDate): Currency;
+var
+  SQLConsulta : TFDQuery;
+begin
+  Result := 0;
+  SQLConsulta := TFDQuery.Create(nil);
+  try
+    SQLConsulta.Connection := dmConexao.SQLConexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT IFNULL(SUM(VALOR), 0) AS VALOR FROM CAIXA WHERE TIPO = ''R''');
+    SQLConsulta.SQL.Add(' AND DATA_CADASTRO BETWEEN :DATAINICIAL AND :DATAFINAL');
+    SQLConsulta.ParamByName('DATAINICIAL').AsDate := DataInicial;
+    SQLConsulta.ParamByName('DATAFINAL').AsDate := DataFinal;
+    SQLConsulta.Open;
+    Result := SQLConsulta.FieldByName('VALOR').AsCurrency;
+  finally
+    SQLConsulta.Free;
+  end;
+
+end;
+
+function TdmCaixa.GetTotalSaidasCaixa(DataInicial, DataFinal: TDate): Currency;
+var
+  SQLConsulta : TFDQuery;
+begin
+  Result := 0;
+  SQLConsulta := TFDQuery.Create(nil);
+  try
+    SQLConsulta.Connection := dmConexao.SQLConexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT IFNULL(SUM(VALOR), 0) AS VALOR FROM CAIXA WHERE TIPO = ''D''');
+    SQLConsulta.SQL.Add(' AND DATA_CADASTRO BETWEEN :DATAINICIAL AND :DATAFINAL');
+    SQLConsulta.ParamByName('DATAINICIAL').AsDate := DataInicial;
+    SQLConsulta.ParamByName('DATAFINAL').AsDate := DataFinal;
+    SQLConsulta.Open;
+    Result := SQLConsulta.FieldByName('VALOR').AsCurrency;
+  finally
+    SQLConsulta.Free;
+  end;
+end;
+
+procedure TdmCaixa.gravarLancamento(aValue: TModelCaixaLancamento; SQLGravar : TFDQuery);
+var
+  SQL : String;
+begin
+  SQL := 'INSERT INTO CAIXA (ID, NUMERO_DOC, DESCRICAO, VALOR, TIPO, DATA_CADASTRO) ' +
+         'VALUES (:IDCAIXA, :NUMERO_DOC, :DESCRICAO, :VALOR, :TIPO, :DATA)';
+
+  SQLGravar.SQL.Clear;
+  SQLGravar.Params.Clear;
+  SQLGravar.SQL.Add(SQL);
+  SQLGravar.ParamByName('IDCAIXA').AsString := aValue.ID;
+  SQLGravar.ParamByName('NUMERO_DOC').AsString := aValue.NumeroDoc;
+  SQLGravar.ParamByName('DESCRICAO').AsString := aValue.Descricao;
+  SQLGravar.ParamByName('VALOR').AsCurrency := aValue.Valor;
+  SQLGravar.ParamByName('TIPO').AsString := aValue.Tipo;
+  SQLGravar.ParamByName('DATA').AsDate := aValue.DataCadastro;
+end;
+
+function TdmCaixa.ResumoCaixa(DataInicial, DataFinal: TDate): TModelResumoCaixa;
+begin
+  if DataInicial > DataFinal then
+    raise Exception.Create('Periodo Inválido');
+  
+  Result := TModelResumoCaixa.Create;
+  try
+    Result.SaldoInicial := GetSaldoAnteriorCaixa(DataInicial);
+    Result.TotalEntradas := GetTotalEntradasCaixa(DataInicial, DataFinal);
+    Result.TotalSaidas := GetTotalSaidasCaixa(DataInicial, DataFinal);
+  except
+    Result.Free;
+    raise;
+  end;
+  
+end;
+
+end.

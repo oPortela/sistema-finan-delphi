@@ -89,6 +89,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_ExeOutput>.\bin</DCC_ExeOutput>
+        <UWP_DelphiLogo44>imagens\MT Rotinas.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>imagens\MT Rotinas.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -188,8 +190,25 @@
             <Form>frmContasReceberBaixar</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\view\finan.view.Contas.Pagar.Consultar.pas">
+            <Form>frmConsultarContasPagar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\view\finan.view.Contas.Pagar.ConsultarDetalhes.pas">
+            <Form>frmConsultarPagarDetalhes</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="src\view\finan.view.Contas.Receber.Consultar.pas">
             <Form>frmConsultarContasReceber</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\view\finan.view.Contas.Receber.ConsultarDetalhes.pas">
+            <Form>frmConsultarDetalhes</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\Model\Entidades\sistema.model.Entidades.CaixaLancamento.pas"/>
+        <DCCReference Include="src\view\Relatorios\finan.view.Relatorio.Usuarios.pas">
+            <Form>frmRelatorioUsuarios</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">
@@ -218,23 +237,16 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="4">
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png" Configuration="Debug" Class="UWP_DelphiLogo150">
-                    <Platform Name="Win32">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo150x150.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
-                    <Platform Name="Win32">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo44x44.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="bin\MonolitoFinanceiro.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>MonolitoFinanceiro.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="imagens\MT Rotinas.png" Configuration="Debug" Class="UWP_DelphiLogo44">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo44x44.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

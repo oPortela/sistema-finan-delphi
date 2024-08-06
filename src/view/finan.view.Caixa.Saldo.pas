@@ -65,6 +65,7 @@ end;
 procedure TfrmCaixaSaldo.FormShow(Sender: TObject);
 begin
   dateInicio.date := IncDay(Now, -7);
+  dateFim.Date := Now;
   Pesquisar;
 end;
 
